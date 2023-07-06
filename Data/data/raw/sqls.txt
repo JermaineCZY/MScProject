@@ -1,0 +1,15 @@
+SELECT DISTINCT
+        
+matches.match_id,
+matches.start_time,
+leagues.name leaguename
+FROM matches
+JOIN match_patch using(match_id)
+JOIN leagues using(leagueid)
+JOIN player_matches using(match_id)
+WHERE TRUE
+AND matches.start_time >= extract(epoch from timestamp '2023-04-19T23:00:00.000Z')
+AND matches.start_time <= extract(epoch from timestamp '2023-06-29T00:00:00.000Z')
+AND (leagues.tier = 'professional' OR leagues.tier = 'premium')
+ORDER BY matches.match_id NULLS LAST
+LIMIT 50000
