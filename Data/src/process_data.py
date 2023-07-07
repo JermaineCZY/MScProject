@@ -36,6 +36,4 @@ def one_hot_encoding(csv_path):
     df.to_csv('encoded_match_details.csv', index=False)
 
 
-if __name__ == '__main__':
-    # select_heroes('match_details.csv')
-    one_hot_encoding('selected_match_details.csv')
+

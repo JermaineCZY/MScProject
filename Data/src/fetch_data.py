@@ -68,10 +68,10 @@ def get_matches_ids(start_time, end_time):
     return match_ids
 
 
-def fetch_match_details(match_ids):
+def fetch_match_details(match_ids, api_key):
     match_details = []
     for match_id in match_ids:
-        response = requests.get(f"https://api.opendota.com/api/matches/{match_id}?api_key=95c09c36-f3bf-4748-ac5a-604be59a8bdd")
+        response = requests.get(f"https://api.opendota.com/api/matches/{match_id}?api_key={api_key}")
         data = response.json()
 
         match_info = {"match_id": match_id, "start_time": data["start_time"]}
@@ -90,8 +90,3 @@ def fetch_match_details(match_ids):
     df.to_csv("match_details.csv", index=False)
     # return match_details
 
-
-if __name__ == '__main__':
-    # get_matches_csv('2023-04-19T23:00:00.000Z', '2023-06-29T00:00:00.000Z')
-    match_ids = get_matches_ids('2023-04-19T23:00:00.000Z', '2023-06-29T00:00:00.000Z')
-    # fetch_match_details(match_ids)
