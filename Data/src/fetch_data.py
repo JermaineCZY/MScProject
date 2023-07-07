@@ -28,14 +28,14 @@ def get_matches_csv(start_time, end_time):
     )
 
     data = response.json()
-    # 创建一个pandas DataFrame
+    # create a pandas dataframe
     df = pd.DataFrame(data['rows'])
 
-    # 从开始和结束时间中提取月和日
+    # extract month and day from start and end time
     start_month_day = datetime.fromisoformat(start_time.replace("Z", "+00:00")).strftime('%m%d')
     end_month_day = datetime.fromisoformat(end_time.replace("Z", "+00:00")).strftime('%m%d')
 
-    # 将DataFrame保存为CSV文件，文件名包含开始和结束的月和日
+    # Save Data Frame as CSV file with filename containing start and end month and day
     df.to_csv(f'matchids_{start_month_day}_{end_month_day}.csv', index=False)
 
 
@@ -63,7 +63,7 @@ def get_matches_ids(start_time, end_time):
 
     data = response.json()
 
-    # 创建一个只包含match_id的Python列表
+    # create a python list containing only match ids
     match_ids = [row['match_id'] for row in data['rows']]
     return match_ids
 
@@ -94,4 +94,4 @@ def fetch_match_details(match_ids):
 if __name__ == '__main__':
     # get_matches_csv('2023-04-19T23:00:00.000Z', '2023-06-29T00:00:00.000Z')
     match_ids = get_matches_ids('2023-04-19T23:00:00.000Z', '2023-06-29T00:00:00.000Z')
-    fetch_match_details(match_ids)
+    # fetch_match_details(match_ids)
