@@ -50,22 +50,20 @@ def DNN():
     model.save('my_model.h5')
 
 
+'''
 def DNN2():
-    # 加载数据
+    # load data
     df = pd.read_csv(config.TRAIN_DATA_PATH)
 
-    # 划分数据集
+    # splitting the dataset
     X = df.drop(['radiant_win', 'match_id'], axis=1)
     y = df['radiant_win']
 
-    # 特征缩放
+    # feature scaling
     scaler = StandardScaler()
     X = scaler.fit_transform(X)
 
-    # 将类别标签转换为one-hot encoding（如果需要）
-    # y = to_categorical(y)
-
-    # 划分训练集和测试集
+    # partitioning the training set and the test set
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
     def build_model(hp):
@@ -105,14 +103,15 @@ def DNN2():
 
     best_model = tuner.get_best_models()[0]
 
-    # 评估模型
+    # evaluation model
     loss, accuracy = best_model.evaluate(X_test, y_test)
     print(f'Loss: {loss}, Accuracy: {accuracy}')
 
-    # 交叉验证
+    # cross validation
     kfold = KFold(n_splits=10, shuffle=True, random_state=42)
     results = cross_val_score(best_model, X, y, cv=kfold)
     print(f'Cross-validation accuracy: {results.mean()}')
+'''
 
 
 def Random_Forest():
@@ -216,8 +215,8 @@ def XGBoost():
 
 
 if __name__ == '__main__':
-    # DNN()
-    DNN2()
+    DNN()
+    # DNN2()
     # Random_Forest()
     # SVM()
     # Logistic_Regression()
