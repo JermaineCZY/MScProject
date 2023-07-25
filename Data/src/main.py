@@ -14,5 +14,5 @@ if __name__ == '__main__':
     # fetch_match_details(match_ids, opendota_api_key)
 
     # process data
-    # select_heroes('match_details.csv')
-    one_hot_encoding('selected_match_details.csv')
+    # select_heroes('../raw/match_details.csv')
+    one_hot_encoding('../processed/selected_match_details.csv')

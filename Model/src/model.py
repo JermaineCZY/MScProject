@@ -1,4 +1,3 @@
-import config
 import pandas as pd
 from sklearn.model_selection import train_test_split, KFold, cross_val_score
 from sklearn.preprocessing import StandardScaler
@@ -14,12 +13,13 @@ from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score
 
 
-def DNN():
+# 调整参数权重！！！！
+def DNN(path):
     # load data
-    df = pd.read_csv(config.TRAIN_DATA_PATH)
+    df = pd.read_csv(path)
 
     # divide the dataset
-    X = df.drop(['radiant_win', 'match_id'], axis=1)
+    X = df.drop(['radiant_win', 'match_id', 'start_time'], axis=1)
     y = df['radiant_win']
 
     # divide training set and test set
@@ -114,9 +114,9 @@ def DNN2():
 '''
 
 
-def Random_Forest():
+def Random_Forest(path):
     # load data
-    df = pd.read_csv(config.TRAIN_DATA_PATH)
+    df = pd.read_csv(path)
 
     # splitting the dataset
     X = df.drop(['radiant_win', 'match_id'], axis=1)
@@ -139,9 +139,9 @@ def Random_Forest():
     print(f'Random_Forest: Accuracy: {accuracy}')
 
 
-def SVM():
+def SVM(path):
     # load data
-    df = pd.read_csv(config.TRAIN_DATA_PATH)
+    df = pd.read_csv(path)
 
     # splitting the dataset
     X = df.drop(['radiant_win', 'match_id'], axis=1)
@@ -164,9 +164,9 @@ def SVM():
     print(f'SVM: Accuracy: {accuracy}')
 
 
-def Logistic_Regression():
+def Logistic_Regression(path):
     # load data
-    df = pd.read_csv(config.TRAIN_DATA_PATH)
+    df = pd.read_csv(path)
 
     # splitting the dataset
     X = df.drop(['radiant_win', 'match_id'], axis=1)
@@ -189,9 +189,9 @@ def Logistic_Regression():
     print(f'Logistic Regression: Accuracy: {accuracy}')
 
 
-def XGBoost():
+def XGBoost(path):
     # load data
-    df = pd.read_csv(config.TRAIN_DATA_PATH)
+    df = pd.read_csv(path)
 
     # splitting the dataset
     X = df.drop(['radiant_win', 'match_id'], axis=1)
@@ -212,12 +212,3 @@ def XGBoost():
     # evaluation
     accuracy = accuracy_score(y_test, y_pred)
     print(f'xgboost: Accuracy: {accuracy}')
-
-
-if __name__ == '__main__':
-    DNN()
-    # DNN2()
-    # Random_Forest()
-    # SVM()
-    # Logistic_Regression()
-    # XGBoost()

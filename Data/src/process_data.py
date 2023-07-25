@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 
+
 def select_heroes(csv_path):
     # load raw data
     df = pd.read_csv(csv_path)
@@ -11,11 +12,10 @@ def select_heroes(csv_path):
     selected_df = df[selected_columns]
 
     # write selected columns to a new csv file
-    selected_df.to_csv('selected_match_details.csv', index=False)
+    selected_df.to_csv('../processed/selected_match_details.csv', index=False)
 
 
 def one_hot_encoding(csv_path):
-
     df = pd.read_csv(csv_path)
 
     # hero list
@@ -33,7 +33,4 @@ def one_hot_encoding(csv_path):
     # add one hot encoded columns to df
     df = pd.concat([df[['match_id', 'radiant_win']], one_hot_radiant, one_hot_dire], axis=1)
 
-    df.to_csv('encoded_match_details.csv', index=False)
-
-
-
+    df.to_csv('../processed/encoded_match_details.csv', index=False)

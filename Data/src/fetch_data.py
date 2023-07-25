@@ -36,7 +36,7 @@ def get_matches_csv(start_time, end_time):
     end_month_day = datetime.fromisoformat(end_time.replace("Z", "+00:00")).strftime('%m%d')
 
     # Save Data Frame as CSV file with filename containing start and end month and day
-    df.to_csv(f'matchids_{start_month_day}_{end_month_day}.csv', index=False)
+    df.to_csv(f'../raw/matches_{start_month_day}_{end_month_day}.csv', index=False)
 
 
 def get_matches_ids(start_time, end_time):
@@ -87,6 +87,6 @@ def fetch_match_details(match_ids, api_key):
 
         time.sleep(60 / 1000)   # 1000 requests per minute
     df = pd.DataFrame(match_details)
-    df.to_csv("match_details.csv", index=False)
+    df.to_csv("../raw/match_details.csv", index=False)
     # return match_details
 
