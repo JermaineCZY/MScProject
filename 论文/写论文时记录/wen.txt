@@ -1,0 +1,164 @@
+Abstract
+This study was undertaken to complete an initial thermal analysis of a novel space heating 
+system based on thermo-geology. This project focused on the addition and removal of heat 
+from the earths subsoil, and its impact on the change in entropy and change in internal energy 
+of the phases within the soil. The soil model presented was assumed to remain at thermal 
+equilibrium throughout this study. As a result, the internal energy, and entropy were reduced 
+to the calculated percentage contribution of the total change in the system. 
+From the investigation into internal energy, as heat was applied to the model, the vapour 
+phase accounted for the majority of the total change in internal energy due to the latent heat 
+of vaporization absorbed by the liquid undergoing phase change. This conclusion was also 
+drawn for the total entropy change, where the level of disorder increased significantly as the 
+liquid phase in the soil model moved into the vapour phase. In contrast, the study into the 
+phase change as heat was removed from the soil model indicated that a significant decrease 
+in entropy and internal energy of the solid water phase occurred, specifically as a result of the 
+significant latent heat released by the liquid water phase on entering the solid phase.
+This study goes on to investigate the effect of humidity on the variation in internal energy and 
+entropy of the model, drawing the conclusions that as VPD decreases with humidity, the 
+phase change within the model reduced as a consequence. The model presented was used to 
+show that though the average specific heat capacity of the model increases, the overall heat 
+required and therefore entropy change, and internal energy of the model reduces. The 
+conclusion drawn is that a soil with a high relative humidity will require significantly less heat 
+input to change the temperature of the soil. This indicates that using the soil as a heat 
+reservoir for a space heating system would be most effective where the phase change in the 
+soil could be controlled as a function of the humidity
+上面是abstract的例子，以下是abstract的要求：
+All reports start with an abstract, which contains a summary of the project: its aim, what was done
+and what was achieved. This document describes the requirements for an MSc project report in the
+School of Engineering and gives advice on how to get better marks. It is structured to match a project report as far as possible.
+根据例子和要求，写一个abstract：这篇论文使用DNN，通过Dota2英雄选择和英雄装备来预测胜负，分别有5分钟，10分钟，15分钟，20分钟，25分钟和30分钟时的英雄装备和选择情况，预测胜负的正确率随着时间增加逐渐提高，使用30分钟时的数据，预测正确率可以达到80%
+
+Explain the background to the project and the reasons why your particular piece of work was considered worthwhile. This leads to the aims of the project: what you are trying to achieve. Be specific
+上面是introduction的要求，以下是introduction的例子:
+1.1 Background
+The Global Energy Crisis
+Across the world, people are becoming more and more aware of the issues associated with 
+heating from natural gas, and from other fossil fuels. The potential implications of the release 
+of CO2 and other greenhouse gases have been well publicized - yet to this day there has not 
+been widespread changes to the carbon based economy within the UK and worldwide. The 
+impacts of global warming are likely to be disastrous this century, with weather patterns 
+changing worldwide including Tsunamis, Hurricanes as well as widespread flooding and 
+drought across most corners of the globe. 
+It is therefore imperative at this time that the world focuses on efforts to find alternative, 
+sustainable methods not only of power generation, but also of space heating and cooling for 
+buildings to reduce the amount of CO2 released into the atmosphere. One such alternative 
+solution that is available is the use of heat pumps, which are known to harness the heat stored 
+in the subsurface of the Earth to generate heat to be used in households and commercial 
+buildings with a much lower environmental impact that conventional gas heating. [1]
+Harnessing the energy of the Earths subsurface
+The specific heat capacity is a unit used to describe the ability of a medium to store heat for 
+each degree Kelvin. As the sun warms the Earth using infrared rays in the summer, the 
+subsurface is able to store a large amount of the heat within the rocks and soils. The rock type 
+varies depending on the particular position of the subsurface in questions, however the 
+thermal conductivities vary from 0.3 W m-1 K
+-1
+for coal up to 7.5 W m-1 K
+-1
+for quartzite. 
+The specific heat capacity is a measure of the ability of a medium to store heat, per degree K; 
+therefore a rock type with a high specific heat capacity indicates it has a high capacity to store 
+heat. In the colder months of the year, it is therefore possible to extract the heat stored in 
+the subsurface with the use of a heat pump, which can drive the temperature of the rocks up 
+the temperature gradient to be used in the buildings on the surface of the planet. 
+The ambient temperature of the rock can be harnessed as a result of the hydrology typically 
+associated with the subsurface. The subsurface of the Earth contains groundwater (with a 
+specific heat capacity of around 4.188 kJ (kg K)-1
+) which in the UK varies between 7 – 150C at 
+a depth of 100m. The ambient temperature of the UK is transmitted through the ground at a 
+thermal diffusivity of around 0.05m2 day-1
+resulting in an increase of temperature of 2.60C per 
+100m of soil. [3]
+In Great Britain there are many different types of space heating systems, and the most 
+common systems are indicated below in Table 1.
+Table 1: Variation in temperature input for heating systems [4]
+The most inefficient of these systems is clearly conventional hot water, with energy 
+requirements to supply hot water at over 600C. Considering the average room temperature 
+of the UK of around 240C, a building with poor insulation will dissipate a lot of that heat to 
+the surroundings. From Table 1 it can also be deduced that the temperature of groundwater
+is far too low to provide a direct heat supply straight into properties on the surface. Therefore, 
+to increase the temperature supplied to the buildings, a compression cycle is required, most 
+likely in the form of a heat pump.
+The Heat Pump
+A water pump is designed to take water from a position of low head, to a position of high 
+head by carrying out work, (e.g. electrical, mechanical.) In the same way a heat pump is 
+designed with the sole aim of carrying heat from an area of high temperature, to an area of
+low temperature – the opposite direction a natural temperature gradient would occur, which 
+again requires work to be successful. The diagram below, Figure 1, shows the working parts 
+of a heat pump.
+Figure 1: The implementation of a heat pump system [4]
+Firstly, for a Ground Sourced Heat Pump (GSHP) to work it must have a borehole drilled to 
+access the groundwater supply. Via a heat exchanger, the groundwater (7-150C) will exchange 
+its heat with a refrigerant capable of transforming into a gas, and so absorbing latent heat 
+from the groundwater when they exchange heat. The refrigerant gas is then passed through 
+a compressor, which raises its pressure and so increases its temperature, as predicted by 
+Boyle’s law.[5] The high temperature gas can then be used in a central heating system to 
+provide space heating for buildings. The gas is then passed through an expansion cycle, which 
+causes it to condense, releasing its remaining heat, and the liquid refrigerant then completes 
+the cycle by returning to the groundwater to be vaporized. Within the system the only 
+electricity required is supplied to the compressor, considerably reducing the power required 
+for the system and therefore the CO2 emissions from generation.
+A typical heat pump in the UK is a large investment, costing between £11,000 - £15,000 for 
+complete installation of the heat pump, therefore it is extremely important to ensure that the 
+system is designed to ensure maximum efficiency.[1] The smaller the temperature difference 
+between the groundwater supply and the central heating network, the more efficient the 
+heat pump will be. To measure the efficiency of the heat pump network, the coefficient of 
+performance is used (Equation 1).[6]
+The coefficient of performance is useful when describing the basic efficiency of a heat pump 
+system, however, since the efficiency of a heat pump varies due to a number of 
+environmental conditions (e.g. delivery temperature and water inlet temperature), the 
+coefficient of performance is not a fixed number, but will vary from day to day depending on 
+subsurface temperatures and so will vary from season to season. For a typical ground sourced 
+heat pump it is expected that the coefficient of performance will be have a minimum value of 
+around 3. This means that for every 1 kW of electrical energy required, 3 kW of heat will be 
+generated. This level of efficiency is the reason that GSHP’s are so attractive, however the 
+high capital costs of the installation means the level of uptake are relatively low except in 
+areas where conventional gas and electricity are unavailable. 
+However with climate change continuing unabated, low energy space heating is one of the 
+biggest requirements of the coming years. It is therefore important to model the subsoil 
+effectively to maximize and utilize the renewable heat available from the Earth.
+The chemical equilibrium of the subsurface of the Earth
+Within the subsurface of the Earth there are a number of phases of state. Contained within 
+the soil and the rock water will be present as a solid within the structure of soil itself, trapped 
+alongside molecules of air, and between clay and mineral particles. Along with that there will 
+be channels of water able to run as a liquid, as well as water vapour and gas present 
+throughout the system. Therefore, to be able to model the soil as accurately as possible, it is 
+important to have a complete understanding of the principles of chemical equilibrium 
+associated with this system. At equilibrium we can use measureable qualities in 
+thermodynamics to investigate how the phases of the Earths subsurface interact with one 
+another, it is these quantities that will be utilized in this project in an effort to model 
+unsaturated soils. 
+Figure 2: Three phase model of the soil
+The diagram above indicates the soil model that will be presented within this study. A three 
+phase model based on 25% air, 25 % liquid (water), and 50% solid (quartz). Typically less than 
+5% of the total soil tends to come from organic matter such as living materials, and 
+decomposing plant litter, therefore these were omitted from this study. [7]
+
+1.2 Outline
+Section 1 of this project discusses the problems affecting the world’s energy supplies and a 
+potential solution to the global energy crises in the form of thermo-geology, along with its 
+potential implementation using ground sourced heat pumps. The soil model to be 
+investigated within this project is then introduced as well as the concept of chemical 
+equilibrium within the subsurface of the earth and its importance to this study.
+Section 2 discusses the theoretical background behind this project, introducing the method 
+of investigating phase change within the soil, before discussing the effects this will have on 
+the average specific heat capacity of the soil. Furthermore, the impact of humidity on the 
+phase change within the soil is discussed, and its effects on the heat capacity. Section 2 
+continues to discuss the theory behind internal energy change and entropy change as heat is 
+applied or removed from the model at thermal equilibrium.
+Section 3 presents the results and discussion from all the investigationsin this project. Initially
+the results from the study into phase change within the soil model is presented and discussed. 
+Continuing to detail the results from the studies into the variation in entropy and internal 
+energy of the soil model as heat is added. The results from the investigation into the removal 
+of heat from the soil are then given, and the impact upon phase composition of the ice are 
+given and discussed. Finally a study is carried out into the impact of humidity upon the soil 
+model, and the subsequent variation in entropy change and internal energy change within 
+the soil are given, along with the implications of the study.
+Section 4 provides the main conclusions of this project.
+Finally, the data used within this project to provide the final results of this project are given 
+in the Appendices. Appendix A presents the data used to calculate the phase change within 
+the soil. Appendix B shows the variation in specific heat capacity of this study. Appendices C 
+and D provide the data used in the investigation into the variation in entropy and internal 
+energy of the soil model as heat is added. Appendix E presents the data used to calculate the 
+variation in entropy and internal energy of the soil model as heat is removed from it, and 
+Appendix F provides the data used to calculate the impact upon entropy and internal energy 
+of the soil model due to the impact of humidity.
