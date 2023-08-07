@@ -1,8 +1,10 @@
-'''TRAIN_DATA_PATH = '../../Data/processed/encoded_match_details.csv' '''
-DATA_PATH = '../../Data/src/processed_data.csv'
+DATA_PATH_WITHOUT_ITEMS = '../../Data/processed/processed_data_no_items.csv'
+DATA_PATH_FULL = '../../Data/src/processed_data_full.csv'
 DATA_PATH_5MIN = '../../Data/src/processed_data_5_min.csv'
 DATA_PATH_10MIN = '../../Data/src/processed_data_10_min.csv'
 DATA_PATH_15MIN = '../../Data/src/processed_data_15_min.csv'
 DATA_PATH_20MIN = '../../Data/src/processed_data_20_min.csv'
 DATA_PATH_25MIN = '../../Data/src/processed_data_25_min.csv'
 DATA_PATH_30MIN = '../../Data/src/processed_data_30_min.csv'
+DATA_PATH_35MIN = '../../Data/src/processed_data_35_min.csv'
+

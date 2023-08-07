@@ -11,10 +11,14 @@ from sklearn import svm
 from sklearn.linear_model import LogisticRegression
 from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import roc_curve
+import matplotlib.pyplot as plt
+from sklearn.metrics import roc_auc_score
+import os
 
 
 # 调整参数权重！！！！
-def DNN(path):
+def DNN(path, save_result):
     # load data
     df = pd.read_csv(path)
 
@@ -23,13 +27,13 @@ def DNN(path):
     y = df['radiant_win']
 
     # divide training set and test set
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # define model
     model = Sequential()
-    model.add(Dense(128, input_dim=X_train.shape[1], activation='relu', kernel_regularizer=l2(0.01)))  # L2正则化
+    model.add(Dense(128, input_dim=X_train.shape[1], activation='relu'))  # L2正则化
     model.add(Dropout(0.5))  # Dropout
-    model.add(Dense(64, activation='relu', kernel_regularizer=l2(0.01)))  # L2正则化
+    model.add(Dense(64, activation='relu'))  # L2正则化
     model.add(Dropout(0.5))  # Dropout
     model.add(Dense(1, activation='sigmoid'))  # 输出层
 
@@ -37,18 +41,34 @@ def DNN(path):
     model.compile(loss='binary_crossentropy', optimizer='adamax', metrics=['accuracy'])
 
     # define tensorboard callbacks
-    tensorboard = TensorBoard(log_dir='./logs')
+    filename = os.path.basename(path)
+
+    # define tensorboard callbacks
+    log_dir = "./logs/" + filename
+    tensorboard = TensorBoard(log_dir=log_dir)
 
     # training model
-    model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=10, batch_size=32, callbacks=[tensorboard])
+    model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=20, batch_size=64, callbacks=[tensorboard])
 
     # evaluation model
     loss, accuracy = model.evaluate(X_test, y_test)
     print(f'DNN: Loss: {loss}, Accuracy: {accuracy}')
 
+    # After training model
+    y_pred = model.predict(X_test)
+    auc_score = roc_auc_score(y_test, y_pred)
+    fpr, tpr, thresholds = roc_curve(y_test, y_pred)
+
+    # save the AUC score to CSV
+    if save_result:
+        dataset_name = os.path.basename(path).split('processed_data_')[1].split('.csv')[0]
+        df = pd.DataFrame(
+            data={'dataset': [dataset_name], 'model': ['DNN'], 'accuracy': [accuracy], 'AUC': [auc_score]})
+        df.to_csv('results.csv', mode='a', index=False)  # append to existing file
+
     # save model
     model.save('my_model.h5')
-
+    return fpr, tpr, auc_score
 
 '''
 def DNN2():
@@ -56,7 +76,7 @@ def DNN2():
     df = pd.read_csv(config.TRAIN_DATA_PATH)
 
     # splitting the dataset
-    X = df.drop(['radiant_win', 'match_id'], axis=1)
+    X = df.drop(['radiant_win', 'match_id', 'start_time'], axis=1)
     y = df['radiant_win']
 
     # feature scaling
@@ -114,12 +134,12 @@ def DNN2():
 '''
 
 
-def Random_Forest(path):
+def Random_Forest(path, save_result):
     # load data
     df = pd.read_csv(path)
 
     # splitting the dataset
-    X = df.drop(['radiant_win', 'match_id'], axis=1)
+    X = df.drop(['radiant_win', 'match_id', 'start_time'], axis=1)
     y = df['radiant_win']
 
     # partitioning the training set and the test set
@@ -138,13 +158,20 @@ def Random_Forest(path):
     accuracy = accuracy_score(y_test, y_pred)
     print(f'Random_Forest: Accuracy: {accuracy}')
 
+    # save results to CSV
+    if save_result:
+        dataset_name = os.path.basename(path).split('processed_data_')[1].split('.csv')[0]
+        df = pd.DataFrame(
+            data={'dataset': [dataset_name], 'model': ['Random_Forest'], 'accuracy': [accuracy], 'AUC': "None"})
+        df.to_csv('results.csv', mode='a', index=False)  # append to existing file
 
-def SVM(path):
+
+def SVM(path, save_result):
     # load data
     df = pd.read_csv(path)
 
     # splitting the dataset
-    X = df.drop(['radiant_win', 'match_id'], axis=1)
+    X = df.drop(['radiant_win', 'match_id', 'start_time'], axis=1)
     y = df['radiant_win']
 
     # partitioning the training set and the test set
@@ -163,20 +190,27 @@ def SVM(path):
     accuracy = accuracy_score(y_test, y_pred)
     print(f'SVM: Accuracy: {accuracy}')
 
+    # save results to CSV
+    if save_result:
+        dataset_name = os.path.basename(path).split('processed_data_')[1].split('.csv')[0]
+        df = pd.DataFrame(
+            data={'dataset': [dataset_name], 'model': ['SVM'], 'accuracy': [accuracy], 'AUC': "None"})
+        df.to_csv('results.csv', mode='a', index=False)  # append to existing file
 
-def Logistic_Regression(path):
+
+def Logistic_Regression(path, save_result):
     # load data
     df = pd.read_csv(path)
 
     # splitting the dataset
-    X = df.drop(['radiant_win', 'match_id'], axis=1)
+    X = df.drop(['radiant_win', 'match_id', 'start_time'], axis=1)
     y = df['radiant_win']
 
     # partitioning the training set and the test set
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
     # define
-    model = LogisticRegression(random_state=42)
+    model = LogisticRegression(random_state=42, max_iter=10000, solver='saga')
 
     # training
     model.fit(X_train, y_train)
@@ -188,13 +222,20 @@ def Logistic_Regression(path):
     accuracy = accuracy_score(y_test, y_pred)
     print(f'Logistic Regression: Accuracy: {accuracy}')
 
+    # save results to CSV
+    if save_result:
+        dataset_name = os.path.basename(path).split('processed_data_')[1].split('.csv')[0]
+        df = pd.DataFrame(
+            data={'dataset': [dataset_name], 'model': ['Logistic_Regression'], 'accuracy': [accuracy], 'AUC': "None"})
+        df.to_csv('results.csv', mode='a', index=False)  # append to existing file
 
-def XGBoost(path):
+
+def XGBoost(path, save_result):
     # load data
     df = pd.read_csv(path)
 
     # splitting the dataset
-    X = df.drop(['radiant_win', 'match_id'], axis=1)
+    X = df.drop(['radiant_win', 'match_id', 'start_time'], axis=1)
     y = df['radiant_win']
 
     # partitioning the training set and the test set
@@ -212,3 +253,10 @@ def XGBoost(path):
     # evaluation
     accuracy = accuracy_score(y_test, y_pred)
     print(f'xgboost: Accuracy: {accuracy}')
+
+    # save results to CSV
+    if save_result:
+        dataset_name = os.path.basename(path).split('processed_data_')[1].split('.csv')[0]
+        df = pd.DataFrame(
+            data={'dataset': [dataset_name], 'model': ['XGBoost'], 'accuracy': [accuracy], 'AUC': "None"})
+        df.to_csv('results.csv', mode='a', index=False)  # append to existing file

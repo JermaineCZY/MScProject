@@ -21,7 +21,7 @@ def process_purchase_log(purchase_log, time_limit):
 df = pd.read_csv('../raw/match_details.csv')
 
 # 对所有的购物记录进行处理并添加新的列，然后保存到不同的CSV文件
-for time_limit in [1200, 1500, 1800]:  # 5分钟、10分钟、15分钟
+for time_limit in [300, 600, 900, 1200, 1500, 1800, 2100]:  # 5分钟、10分钟、15分钟
     df_temp = df.copy()  # 创建一个临时的DataFrame，以便我们可以在原始数据上进行操作
     for col in df_temp.columns:
         if 'purchase_log' in col:
@@ -46,7 +46,7 @@ for time_limit in [1200, 1500, 1800]:  # 5分钟、10分钟、15分钟
                 for item in df_temp[col][i]:
                     if item in all_items:
                         index = all_items.index(item)
-                        row[index] = 1
+                        row[index] = 2
                 item_onehot.append(row)
             item_onehot = np.array(item_onehot)
             df_temp = pd.concat([df_temp, pd.DataFrame(item_onehot, columns=all_items)], axis=1)
@@ -64,4 +64,4 @@ for time_limit in [1200, 1500, 1800]:  # 5分钟、10分钟、15分钟
     df_temp['radiant_win'] = df_temp['radiant_win'].map({True: 1, False: 0})
 
     # 将处理后的数据保存到新的CSV文件
-    df_temp.to_csv(f'processed_data_{time_limit//60}_min.csv', index=False)
+    df_temp.to_csv(f'processed_data_{time_limit//60}_min_new.csv', index=False)
