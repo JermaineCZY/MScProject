@@ -31,11 +31,11 @@ def DNN(path, save_result):
 
     # define model
     model = Sequential()
-    model.add(Dense(128, input_dim=X_train.shape[1], activation='relu'))  # L2正则化
+    model.add(Dense(128, input_dim=X_train.shape[1], activation='relu'))
     model.add(Dropout(0.5))  # Dropout
-    model.add(Dense(64, activation='relu'))  # L2正则化
+    model.add(Dense(64, activation='relu'))
     model.add(Dropout(0.5))  # Dropout
-    model.add(Dense(1, activation='sigmoid'))  # 输出层
+    model.add(Dense(1, activation='sigmoid'))
 
     # compile model
     model.compile(loss='binary_crossentropy', optimizer='adamax', metrics=['accuracy'])
@@ -146,7 +146,8 @@ def Random_Forest(path, save_result):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
     # define
-    model = RandomForestClassifier(n_estimators=100, random_state=42)
+    model = RandomForestClassifier(n_estimators=100, max_depth=None, min_samples_split=2,
+                                   min_samples_leaf=1, bootstrap=True, random_state=42)
 
     # training
     model.fit(X_train, y_train)
@@ -175,7 +176,7 @@ def SVM(path, save_result):
     y = df['radiant_win']
 
     # partitioning the training set and the test set
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # define
     model = svm.SVC(kernel='linear', C=1.0, random_state=42)
@@ -207,7 +208,7 @@ def Logistic_Regression(path, save_result):
     y = df['radiant_win']
 
     # partitioning the training set and the test set
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # define
     model = LogisticRegression(random_state=42, max_iter=10000, solver='saga')
@@ -239,7 +240,7 @@ def XGBoost(path, save_result):
     y = df['radiant_win']
 
     # partitioning the training set and the test set
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # define
     model = XGBClassifier(random_state=42)
