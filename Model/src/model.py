@@ -17,7 +17,7 @@ from sklearn.metrics import roc_auc_score
 import os
 
 
-# 调整参数权重！！！！
+# Adjust parameter weights!!!
 def DNN(path, save_result):
     # load data
     df = pd.read_csv(path)
@@ -32,9 +32,9 @@ def DNN(path, save_result):
     # define model
     model = Sequential()
     model.add(Dense(128, input_dim=X_train.shape[1], activation='relu'))
-    model.add(Dropout(0.5))  # Dropout
+    model.add(Dropout(0.45))  # Dropout
     model.add(Dense(64, activation='relu'))
-    model.add(Dropout(0.5))  # Dropout
+    model.add(Dropout(0.45))  # Dropout
     model.add(Dense(1, activation='sigmoid'))
 
     # compile model
@@ -70,69 +70,6 @@ def DNN(path, save_result):
     model.save('my_model.h5')
     return fpr, tpr, auc_score
 
-'''
-def DNN2():
-    # load data
-    df = pd.read_csv(config.TRAIN_DATA_PATH)
-
-    # splitting the dataset
-    X = df.drop(['radiant_win', 'match_id', 'start_time'], axis=1)
-    y = df['radiant_win']
-
-    # feature scaling
-    scaler = StandardScaler()
-    X = scaler.fit_transform(X)
-
-    # partitioning the training set and the test set
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-
-    def build_model(hp):
-        model = Sequential()
-        model.add(Dense(units=hp.Int('units_input',
-                                     min_value=32,
-                                     max_value=512,
-                                     step=32),
-                        input_dim=X_train.shape[1],
-                        activation='relu'))
-        model.add(Dense(units=hp.Int('units_hidden',
-                                     min_value=32,
-                                     max_value=512,
-                                     step=32),
-                        activation='relu'))
-        model.add(Dense(1, activation='sigmoid'))
-
-        model.compile(loss='binary_crossentropy',
-                      optimizer=hp.Choice('optimizer', ['adam', 'sgd', 'rmsprop']),
-                      metrics=['accuracy'])
-
-        return model
-
-    tuner = RandomSearch(
-        build_model,
-        objective='val_accuracy',
-        max_trials=5,
-        executions_per_trial=3,
-        directory='project',
-        project_name='Dota 2 Win Prediction')
-
-    tuner.search_space_summary()
-
-    tuner.search(X_train, y_train, epochs=10, validation_data=(X_test, y_test))
-
-    tuner.results_summary()
-
-    best_model = tuner.get_best_models()[0]
-
-    # evaluation model
-    loss, accuracy = best_model.evaluate(X_test, y_test)
-    print(f'Loss: {loss}, Accuracy: {accuracy}')
-
-    # cross validation
-    kfold = KFold(n_splits=10, shuffle=True, random_state=42)
-    results = cross_val_score(best_model, X, y, cv=kfold)
-    print(f'Cross-validation accuracy: {results.mean()}')
-'''
-
 
 def Random_Forest(path, save_result):
     # load data
@@ -146,8 +83,8 @@ def Random_Forest(path, save_result):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
     # define
-    model = RandomForestClassifier(n_estimators=100, max_depth=None, min_samples_split=2,
-                                   min_samples_leaf=1, bootstrap=True, random_state=42)
+    model = RandomForestClassifier(n_estimators=100, max_features=30, max_depth=None,
+                                   min_samples_leaf=1, random_state=42)
 
     # training
     model.fit(X_train, y_train)
@@ -167,38 +104,6 @@ def Random_Forest(path, save_result):
         df.to_csv('results.csv', mode='a', index=False)  # append to existing file
 
 
-def SVM(path, save_result):
-    # load data
-    df = pd.read_csv(path)
-
-    # splitting the dataset
-    X = df.drop(['radiant_win', 'match_id', 'start_time'], axis=1)
-    y = df['radiant_win']
-
-    # partitioning the training set and the test set
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-    # define
-    model = svm.SVC(kernel='linear', C=1.0, random_state=42)
-
-    # training
-    model.fit(X_train, y_train)
-
-    # predict
-    y_pred = model.predict(X_test)
-
-    # evaluation
-    accuracy = accuracy_score(y_test, y_pred)
-    print(f'SVM: Accuracy: {accuracy}')
-
-    # save results to CSV
-    if save_result:
-        dataset_name = os.path.basename(path).split('processed_data_')[1].split('.csv')[0]
-        df = pd.DataFrame(
-            data={'dataset': [dataset_name], 'model': ['SVM'], 'accuracy': [accuracy], 'AUC': "None"})
-        df.to_csv('results.csv', mode='a', index=False)  # append to existing file
-
-
 def Logistic_Regression(path, save_result):
     # load data
     df = pd.read_csv(path)
@@ -211,7 +116,7 @@ def Logistic_Regression(path, save_result):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # define
-    model = LogisticRegression(random_state=42, max_iter=10000, solver='saga')
+    model = LogisticRegression(max_iter=10000, solver='saga', random_state=42)
 
     # training
     model.fit(X_train, y_train)
@@ -242,7 +147,7 @@ def XGBoost(path, save_result):
     # partitioning the training set and the test set
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    # define
+    # define model
     model = XGBClassifier(random_state=42)
 
     # training

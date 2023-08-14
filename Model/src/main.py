@@ -1,4 +1,4 @@
-from model import DNN, Random_Forest, SVM, Logistic_Regression, XGBoost
+from model import DNN, Random_Forest, Logistic_Regression, XGBoost
 import config
 from keras.models import load_model
 
@@ -9,9 +9,8 @@ save_result = 1
 if __name__ == '__main__':
     for path in data_paths:
         print(f'Training on data: {path}')
-        DNN(path, save_result)
+        '''DNN(path, save_result)
         # DNN2() #test
         Random_Forest(path, save_result)
-        '''SVM()'''
-        Logistic_Regression(path, save_result)
+        Logistic_Regression(path, save_result)'''
         XGBoost(path, save_result)

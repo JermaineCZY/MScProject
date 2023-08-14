@@ -70,3 +70,4 @@ dataset,model,accuracy,AUC
 full,Logistic_Regression,0.8926991150442478,None
 dataset,model,accuracy,AUC
 full,XGBoost,0.8368362831858407,None
+

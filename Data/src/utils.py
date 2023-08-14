@@ -44,22 +44,22 @@ def test():
 
 def split_matches_csv(file_path):
 
-    # 读取CSV文件
+    # read csv file
     path = file_path
     df = pd.read_csv(path)
 
-    # 获取原始文件名（不包括扩展名）
+    # get the original file name
     original_filename = os.path.splitext(os.path.basename(path))[0]
 
-    # 打乱数据
+    # shuffle data
     df_shuffled = df.sample(frac=1, random_state=42)
 
-    # 划分数据集
-    train_size = int(0.8 * len(df_shuffled))  # 例如，训练集占80%
+    # splitting the dataset into train and validation sets
+    train_size = int(0.8 * len(df_shuffled))
     train_set = df_shuffled[:train_size]
     validation_set = df_shuffled[train_size:]
 
-    # 保存为新的CSV文件
+    # save as a new csv file
     train_set.to_csv(f'{original_filename}_train_set.csv', index=False)
     validation_set.to_csv(f'{original_filename}_validation_set.csv', index=False)
 

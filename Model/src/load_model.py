@@ -19,8 +19,6 @@ plt.show()
 
 
 
-# 使用你的模型对象
-
 
 # x = np.random.rand(1, model.input_shape[1])
 

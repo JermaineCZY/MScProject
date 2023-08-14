@@ -161,3 +161,5 @@ cython_debug/
 #.idea/
 
 !/Data/config/api_key.json
+!/论文/写论文时记录/
+!/论文/写poster时记录/

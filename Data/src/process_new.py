@@ -17,18 +17,18 @@ def process_purchase_log(purchase_log, time_limit):
     return pd.Series([items_within_time_limit])
 
 
-# 读取csv文件
+# read csv file
 df = pd.read_csv('../raw/match_details.csv')
 
-# 对所有的购物记录进行处理并添加新的列，然后保存到不同的CSV文件
-for time_limit in [300, 600, 900, 1200, 1500, 1800, 2100]:  # 5分钟、10分钟、15分钟
-    df_temp = df.copy()  # 创建一个临时的DataFrame，以便我们可以在原始数据上进行操作
+# Process all the shopping records and add new columns, then save them to different CSV files.
+for time_limit in [300, 600, 900, 1200, 1500, 1800, 2100]:  # 5 minutes, 10 minutes, 15 minutes, 20 minutes, 25 minutes, 30 minutes, 35 minutes.
+    df_temp = df.copy()  # Create a temporary Data Frame so that we can perform operations on the original data.
     for col in df_temp.columns:
         if 'purchase_log' in col:
             df_temp[f'{col}_{time_limit//60}_min'] = df_temp[col].apply(lambda x: process_purchase_log(x, time_limit))
-            df_temp = df_temp.drop(col, axis=1)  # 移除原有的购物记录列
+            df_temp = df_temp.drop(col, axis=1)  # remove the existing shopping record column
 
-    # 收集所有购买的物品
+    # collect all purchased items
     all_items = set()
     for col in df_temp.columns:
         if 'purchase_log' in col:
@@ -37,7 +37,7 @@ for time_limit in [300, 600, 900, 1200, 1500, 1800, 2100]:  # 5分钟、10分钟
 
     all_items = list(all_items)
 
-    # 对所有的购物记录进行one-hot编码
+    # perform one hot encoding on all shopping records
     for col in df_temp.columns:
         if 'purchase_log' in col:
             item_onehot = []
@@ -50,18 +50,18 @@ for time_limit in [300, 600, 900, 1200, 1500, 1800, 2100]:  # 5分钟、10分钟
                 item_onehot.append(row)
             item_onehot = np.array(item_onehot)
             df_temp = pd.concat([df_temp, pd.DataFrame(item_onehot, columns=all_items)], axis=1)
-            df_temp = df_temp.drop(col, axis=1)  # 移除原有的购物记录列
+            df_temp = df_temp.drop(col, axis=1)  # remove the existing shopping record column
 
-    # 对所有的hero进行one-hot编码
+    # one hot encode all the heroes
     heroes_cols = [col for col in df_temp.columns if 'hero' in col]
     enc_hero = OneHotEncoder(dtype=int)
     for col in heroes_cols:
         onehot_results = enc_hero.fit_transform(df_temp[[col]]).toarray()
         df_temp = pd.concat([df_temp, pd.DataFrame(onehot_results)], axis=1)
-        df_temp = df_temp.drop(col, axis=1)  # 移除原有的hero列
+        df_temp = df_temp.drop(col, axis=1)  # remove the original column of heroes
 
-    # 将radiant_win列中的true和false转化为1和0
+    # Convert the 'true' and 'false' values in the 'radiant win' column to '1' and '0'.
     df_temp['radiant_win'] = df_temp['radiant_win'].map({True: 1, False: 0})
 
-    # 将处理后的数据保存到新的CSV文件
+    # save the processed data to a new csv file
     df_temp.to_csv(f'processed_data_{time_limit//60}_min_new.csv', index=False)
